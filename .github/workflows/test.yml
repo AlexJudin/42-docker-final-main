@@ -13,7 +13,7 @@ jobs:
       - uses: golangci/golangci-lint-action@v3
 
   tests:
-    needs: [build, lint]
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
