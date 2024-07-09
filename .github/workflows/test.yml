@@ -13,19 +13,15 @@ jobs:
       - name: Build
         run: go build -v ./...
 
-  # Задание проверяет код на соответствие стилю и отсутствие логических ошибок
   lint:
-    # Задание "lint" зависит от заданий "tests" и "tests-race" и будет выполнено после них
-    needs: [ build ]
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v4
-      # Используется действие "golangci/golangci-lint-action@v3", которое запускает линтер. Он проверит код на соответствие стилю и отсутствие логических ошибок
       - uses: golangci/golangci-lint-action@v3
 
   tests:
-    # Задание "tests" зависит от задания "build" и будет выполнено после него
     needs: [build, lint]
     runs-on: ubuntu-latest
     steps:
