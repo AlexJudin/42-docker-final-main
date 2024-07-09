@@ -1,23 +1,10 @@
-name: Go
+name: Test
 
-on:
-  push:
-    branches: ["YP-12S"]
+on: push
 
 jobs:
 
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-go@v4
-
-      - name: Build
-        run: go build -v ./...
-
   tests:
-    # Задание "tests" зависит от задания "build" и будет выполнено после него
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -26,9 +13,7 @@ jobs:
       - name: Test
         run: go test -v ./...
 
-  # Задание проверяет код на соответствие стилю и отсутствие логических ошибок
   lint:
-    # Задание "lint" зависит от заданий "tests" и "tests-race" и будет выполнено после них
     needs: tests
     runs-on: ubuntu-latest
     steps:
